@@ -5,17 +5,26 @@ package:
 source:
   - git_url: https://github.com/ndevenish/super-dials
     folder: modules
+    patches:
+      - patches/001_patch_graph_libcxx.patch
   - git_url: https://github.com/ndevenish/tbxcmake
     folder: modules/cmake
   - git_url: https://github.com/ndevenish/tbxtools
     folder: tbxtools
 
 requirements:
-#   build:
-#     - python
-#     - setuptools
+  build:
+    - python
+    - git
+    - cmake
+    - {{ compiler('cxx') }}
 
   run:
+    # Things installed by bootstrap
+    - boost
+    - eigen
+    - msgpack-c
+
     - pthread-stubs
     - py2app
     - python.app
