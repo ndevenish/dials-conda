@@ -14,6 +14,11 @@ step "Generating build files"
 pwd
 tbx2cmake modules
 [[ -f modules/CMakeLists.txt ]] || ( cd modules && ln -s cmake/CMakeLists.txt .; )
+# While we have a simple non-resolving cmakelist disable things
+# fast_linalg depends on lapack and isn't built by default
+sed -ie 's;add_subdirectory(cctbx_project/fast_linalg);#add_subdirectory(cctbx_project/fast_linalg);' modules/autogen_CMakeLists.txt
+# lstbx benchmark depends on fast_linalg in some undeclared way
+sed -ie 's;add_subdirectory(benchmarks);#add_subdirectory(benchmarks);' modules/cctbx_project/scitbx/lstbx/CMakeLists.txt
 
 step "Generating Build"
 [[ -f "_build/build.ninja" ]] || (
