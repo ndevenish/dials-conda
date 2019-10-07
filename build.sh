@@ -19,6 +19,8 @@ tbx2cmake modules
 sed -ie 's;add_subdirectory(cctbx_project/fast_linalg);#add_subdirectory(cctbx_project/fast_linalg);' modules/autogen_CMakeLists.txt
 # lstbx benchmark depends on fast_linalg in some undeclared way
 sed -ie 's;add_subdirectory(benchmarks);#add_subdirectory(benchmarks);' modules/cctbx_project/scitbx/lstbx/CMakeLists.txt
+# Replace libtbx.env loading with one that works via entrypoints
+cp patches/env_generic.py modules/cctbx_project/libtbx/load_env.py
 
 step "Generating Build"
 [[ -f "_build/build.ninja" ]] || (

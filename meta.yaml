@@ -20,6 +20,9 @@ requirements:
     - {{ compiler('cxx') }}
 
   run:
+    # Extra things from this distribution
+    - entrypoints
+
     # Things installed by bootstrap
     - boost
     - eigen
