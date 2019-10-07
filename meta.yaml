@@ -6,7 +6,7 @@ source:
   - git_url: https://github.com/ndevenish/super-dials
     folder: modules
     patches:
-      - patches/0001_patch_graph_libcxx.patch
+      - patches/0001-boost-graph-patch.patch
       - patches/0002-Replace-libtbx-env.patch
       - patches/0003-Remove-_demangle_is_broken.patch
   - git_url: https://github.com/ndevenish/tbxcmake
