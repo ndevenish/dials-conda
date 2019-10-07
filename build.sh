@@ -57,7 +57,8 @@ stage "Generating Build"
     # Extra python args to ensure picks up conda python
     cmake ../modules -GNinja \
         -DBOOST_ROOT=$CONDA_PREFIX \
-        -DPython_ROOT_DIR=$CONDA_PREFIX -DPython_FIND_STRATEGY=LOCATION
+        -DPython_ROOT_DIR=$CONDA_PREFIX -DPython_FIND_STRATEGY=LOCATION \
+        -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
 )
 
 stage "Build"
