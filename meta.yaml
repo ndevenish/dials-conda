@@ -32,8 +32,8 @@ requirements:
     - py2app
     - python.app
 
-    - "cctbx::hdf5_plugins"
-    - "cctbx::libcxx"
+    #- "cctbx::hdf5_plugins"
+    #- "cctbx::libcxx"
 
     - "conda-forge::dials-data"
     - "conda-forge::mrcfile"
