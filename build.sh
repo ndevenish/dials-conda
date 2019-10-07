@@ -4,7 +4,9 @@
 set -e
 
 # Flag for debugging the build - will try to softlink instead of final install
-export INSTALL_DEVELOP=1
+if [[ -z $CONDA_BUILD_STATE ]]; then
+    export INSTALL_DEVELOP=1
+fi
 
 stage() {
     printf "\e[1m${*}\e[0m\n"
@@ -72,4 +74,8 @@ stage "Build"
 stage "Install"
 export LIBTBX_BUILD=$(pwd)/_build
 bash ./setup.sh
+(
+    cd _build
+    ninja install
+)
 
