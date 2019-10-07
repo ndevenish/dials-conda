@@ -6,7 +6,9 @@ source:
   - git_url: https://github.com/ndevenish/super-dials
     folder: modules
     patches:
-      - patches/001_patch_graph_libcxx.patch
+      - patches/0001_patch_graph_libcxx.patch
+      - patches/0002-Replace-libtbx-env.patch
+      - patches/0003-Remove-_demangle_is_broken.patch
   - git_url: https://github.com/ndevenish/tbxcmake
     folder: modules/cmake
   - git_url: https://github.com/ndevenish/tbxtools
@@ -18,6 +20,11 @@ requirements:
     - git
     - cmake
     - {{ compiler('cxx') }}
+    # tbxtools
+    - networkx
+    - pyyaml
+    - docopt
+    - six
 
   run:
     # Extra things from this distribution

@@ -30,10 +30,13 @@ poststep() {
 if [[ -z "$PYTHON" ]]; then
     export PYTHON=$(which python3)
 fi
-
+if [[ ! -f "$PYTHON" ]]; then
+    echo 'Conda environment error? No python at $PYTHON. Using PATH'
+    export PYTHON=$(which python3)
+fi
 
 stage "Generating build files"
-( cd tbxtools && pwd && $PYTHON setup.py develop; )
+$PYTHON -mpip install tbxtools/
 pwd
 tbx2cmake modules
 step "Create CMakeLists"
@@ -49,9 +52,9 @@ step "Disable benchmarks"
 sed -ie 's;add_subdirectory(benchmarks);#add_subdirectory(benchmarks);' modules/cctbx_project/scitbx/lstbx/CMakeLists.txt
 poststep
 # Replace libtbx.env loading with one that works via entrypoints
-step "Replace libtbx environment"
-cp patches/env_generic.py modules/cctbx_project/libtbx/load_env.py
-poststep
+# step "Replace libtbx environment"
+# cp patches/env_generic.py modules/cctbx_project/libtbx/load_env.py
+# poststep
 
 stage "Generating Build"
 [[ -f "_build/build.ninja" ]] || (
@@ -73,7 +76,24 @@ stage "Build"
 
 stage "Install"
 export LIBTBX_BUILD=$(pwd)/_build
-bash ./setup.sh
+
+(
+
+    mkdir -p modules_setup
+    cd modules_setup
+
+    ln -fs $(ls -d ../modules/*/ | grep -v cmake | grep -v cctbx_project) .
+    ln -fs $(ls -d ../modules/cctbx_project/*/ | grep -v dxtbx) .
+    ln -fs ../setup.py
+
+    # Run the install
+    if [[ -n "$INSTALL_DEVELOP" ]]; then
+        $PYTHON -mpip install -e .
+    else
+        $PYTHON -mpip install .
+    fi
+)
+
 (
     cd _build
     ninja install
