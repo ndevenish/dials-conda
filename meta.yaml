@@ -19,6 +19,7 @@ requirements:
     - python
     - git
     - cmake
+    - boost-cpp
     - {{ compiler('cxx') }}
     # tbxtools
     - networkx

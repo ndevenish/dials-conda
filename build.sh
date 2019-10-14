@@ -31,8 +31,8 @@ if [[ -z "$PYTHON" ]]; then
     export PYTHON=$(which python3)
 fi
 if [[ ! -f "$PYTHON" ]]; then
-    echo 'Conda environment error? No python at $PYTHON. Using PATH'
     export PYTHON=$(which python3)
+    echo 'Conda environment error? No python at $PYTHON. Using PATH: ' ${PYTHON}
 fi
 
 stage "Generating build files"
@@ -47,7 +47,7 @@ poststep
 step "Disable fast_linalg"
 sed -ie 's;add_subdirectory(cctbx_project/fast_linalg);#add_subdirectory(cctbx_project/fast_linalg);' modules/autogen_CMakeLists.txt
 poststep
-# lstbx benchmark depends on fast_linalg in some undeclared way
+# lstbx benchmark depends on fast_linalg in some undeclared way
 step "Disable benchmarks"
 sed -ie 's;add_subdirectory(benchmarks);#add_subdirectory(benchmarks);' modules/cctbx_project/scitbx/lstbx/CMakeLists.txt
 poststep
@@ -57,6 +57,8 @@ poststep
 # poststep
 
 stage "Generating Build"
+set -x
+
 [[ -f "_build/build.ninja" ]] || (
     mkdir -p _build && cd _build
     # Extra python args to ensure picks up conda python
