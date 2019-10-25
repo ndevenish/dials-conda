@@ -20,12 +20,19 @@ requirements:
     - git
     - cmake
     - ninja
+    - numpy
     - {{ compiler('cxx') }}
     # tbxtools
     - networkx
     - pyyaml
     - docopt
     - six
+    # Binary duplicates
+    - boost
+    - eigen
+    - msgpack-c
+    - hdf5
+
 
   run:
     # Extra things from this distribution

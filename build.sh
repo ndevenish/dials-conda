@@ -59,6 +59,8 @@ poststep
 stage "Generating Build"
 set -x
 
+env
+
 [[ -f "_build/build.ninja" ]] || (
     mkdir -p _build && cd _build
     # Extra python args to ensure picks up conda python
