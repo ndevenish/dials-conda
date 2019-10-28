@@ -73,7 +73,7 @@ env
 stage "Build"
 (
     cd _build
-    # Dependency resolution isn't completely derived so do generation first
+    # Dependency resolution isnt completely derived so do generation first
     ninja scitbx_refresh
     ninja
 )
@@ -88,13 +88,15 @@ export LIBTBX_BUILD=$(pwd)/_build
 
     ln -fs $(ls -d ../modules/*/ | grep -v cmake | grep -v cctbx_project) .
     ln -fs $(ls -d ../modules/cctbx_project/*/ | grep -v dxtbx) .
-    ln -fs ../setup.py
+    ln -fs ../modules/cmake/setup.py.template setup.py
+
+    pwd
 
     # Run the install
     if [[ -n "$INSTALL_DEVELOP" ]]; then
         $PYTHON -mpip install -e .
     else
-        $PYTHON -mpip install .
+        $PYTHON setup.py install
     fi
 )
 

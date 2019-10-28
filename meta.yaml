@@ -22,6 +22,9 @@ requirements:
     - ninja
     - numpy
     - {{ compiler('cxx') }}
+    - mesalib # [linux]
+    - libglu  # [linux]
+    - libtiff # [linux]
     # tbxtools
     - networkx
     - pyyaml
@@ -44,9 +47,11 @@ requirements:
     - msgpack-c
 
     - pthread-stubs
-    - py2app
-    - python.app
+    - py2app        # [mac]
+    - python.app    # [mac]
 
+    #- mesalib # [linux]
+    #- libglu  # [linux]
     #- "cctbx::hdf5_plugins"
     #- "cctbx::libcxx"
 
