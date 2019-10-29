@@ -6,6 +6,7 @@ set -e
 # Flag for debugging the build - will try to softlink instead of final install
 if [[ -z $CONDA_BUILD_STATE ]]; then
     export INSTALL_DEVELOP=1
+    echo "RUNNING IN DEVELOP MODE"
 fi
 
 stage() {
@@ -27,16 +28,30 @@ poststep() {
     fi
 }
 
-if [[ -z "$PYTHON" ]]; then
-    export PYTHON=$(which python3)
-fi
-if [[ ! -f "$PYTHON" ]]; then
-    export PYTHON=$(which python3)
-    echo 'Conda environment error? No python at $PYTHON. Using PATH: ' ${PYTHON}
-fi
 
-stage "Generating build files"
-$PYTHON -mpip install tbxtools/
+printf "Environment:\e[37m\n"
+env | sort
+printf "\e[0m-------DONE------"
+
+
+echo "PATH Python: $(which python)"
+#${PYTHON}"
+echo "Host Python: $PYTHON"
+
+#set -x
+#if [[ -z "$PYTHON" ]]; then
+#    export PYTHON=$(which python3)
+#fi
+#if [[ ! -f "$PYTHON" ]]; then
+#    export PYTHON=$(which python3) 
+#   echo 'Conda environment error? No python at $PYTHON. Using PATH: ' ${PYTHON}
+#    exit 1
+#fi
+
+#export BUILD_PYTHON=
+#exit 0
+stage "Generating CMake build files from SConscripts"
+python -mpip install tbxtools/
 pwd
 tbx2cmake modules
 step "Create CMakeLists"
@@ -57,17 +72,14 @@ poststep
 # poststep
 
 stage "Generating Build"
-set -x
-
-env
 
 [[ -f "_build/build.ninja" ]] || (
     mkdir -p _build && cd _build
     # Extra python args to ensure picks up conda python
     cmake ../modules -GNinja \
         -DBOOST_ROOT=$CONDA_PREFIX \
-        -DPython_ROOT_DIR=$CONDA_PREFIX -DPython_FIND_STRATEGY=LOCATION \
-        -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
+        -DPython_ROOT_DIR=$PREFIX -DPython_FIND_STRATEGY=LOCATION \
+        -DCMAKE_INSTALL_PREFIX=$PREFIX
 )
 
 stage "Build"
@@ -92,12 +104,10 @@ export LIBTBX_BUILD=$(pwd)/_build
 
     pwd
 
-    # Run the install
-    if [[ -n "$INSTALL_DEVELOP" ]]; then
-        $PYTHON -mpip install -e .
-    else
-        $PYTHON setup.py install
-    fi
+    $PYTHON setup.py install
+#--no-deps --ignore-installed -vvv
+
+#--no-deps --ignore-installed -vvv
 )
 
 (
