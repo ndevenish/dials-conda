@@ -34,7 +34,7 @@ requirements:
     #- docopt
     - six
     # Binary duplicates
-    - boost
+    - boost<1.73
     - eigen
     - msgpack-c
     - hdf5
@@ -48,7 +48,7 @@ requirements:
     - entrypoints
 
     # Things installed by bootstrap
-    - boost
+    - boost<1.73
     - eigen
     - msgpack-c
 
@@ -63,43 +63,43 @@ requirements:
 
     - "conda-forge::dials-data"
     - "conda-forge::mrcfile"
-    - "conda-forge::msgpack-python=0.6.2"
+    - "conda-forge::msgpack-python"
     - "conda-forge::orderedset"
     - "conda-forge::procrunner>=1.0.2"
     - "conda-forge::pyrtf"
 
     - alabaster
-    - biopython=1.73
+    - biopython
     - bzip2
-    - cython>=0.29,<0.30
+    - cython
     - docutils
     - future
     - h5py
     - hdf5
     - jinja2
     - jpeg
-    - matplotlib-base>=3.0.2,<3.1
+    - matplotlib-base
     - mock
     - nomkl
-    - numpy>=1.15,<1.16
+    - numpy
     - pillow>=5.4.1
     - pip
     - psutil
-    - pytest>=4.5,<5.0
+    - pytest>=4.5
     - pytest-forked
     - pytest-mock
     - pytest-xdist
-    - python>3.6
+    - python>=3.6
     - requests
-    - scikit-learn=0.20.2
-    - scipy=1.2.1
+    - scikit-learn
+    - scipy
     - send2trash
     - setuptools
     - six
-    - sphinx<1.9
+    - sphinx
     - sqlite
     - tabulate
-    - tqdm=4.23.4
+    - tqdm
     - urllib3
     - wxpython>=4.0.1
     - xz
