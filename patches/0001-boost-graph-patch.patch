@@ -6,7 +6,7 @@ index 58559fae9..80866a6fe 100644
  #include <boost/graph/graph_traits.hpp>
  #include <boost/graph/bc_clustering.hpp>
  
-+#if _LIBCPP_VERSION && (BOOST_VERSION < 107100)
++#if _LIBCPP_VERSION && (BOOST_VERSION < 107300)
 +namespace boost_fix {
 +// Since boost::Graph doesn't work with newer libc++, reimplement without max_element
 +template <typename MutableGraph, typename Done, typename EdgeCentralityMap,
@@ -60,7 +60,7 @@ index 58559fae9..80866a6fe 100644
      index_map_type index_map( graph );
      edge_centrality_map_type edge_centrality_map( graph );
  
-+#if _LIBCPP_VERSION && (BOOST_VERSION < 107100)
++#if _LIBCPP_VERSION && (BOOST_VERSION < 107300)
 +    boost_fix::betweenness_centrality_clustering(
 +      graph,
 +      boost::bc_clustering_threshold< double >( threshold, graph, false ),
