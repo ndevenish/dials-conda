@@ -57,15 +57,6 @@ tbx2cmake modules
 step "Create CMakeLists"
 [[ -f modules/CMakeLists.txt ]] || ( cd modules && ln -s cmake/CMakeLists.txt .; )
 poststep
-# While we have a simple non-resolving cmakelist disable things
-# fast_linalg depends on lapack and isn't built by default
-step "Disable fast_linalg"
-sed -ie 's;add_subdirectory(cctbx_project/fast_linalg);#add_subdirectory(cctbx_project/fast_linalg);' modules/autogen_CMakeLists.txt
-poststep
-# lstbx benchmark depends on fast_linalg in some undeclared way
-step "Disable benchmarks"
-sed -ie 's;add_subdirectory(benchmarks);#add_subdirectory(benchmarks);' modules/cctbx_project/scitbx/lstbx/CMakeLists.txt
-poststep
 # Replace libtbx.env loading with one that works via entrypoints
 # step "Replace libtbx environment"
 # cp patches/env_generic.py modules/cctbx_project/libtbx/load_env.py
@@ -79,14 +70,13 @@ stage "Generating Build"
     cmake ../modules -GNinja \
         -DBOOST_ROOT=$CONDA_PREFIX \
         -DPython_ROOT_DIR=$PREFIX -DPython_FIND_STRATEGY=LOCATION \
-        -DCMAKE_INSTALL_PREFIX=$PREFIX
+        -DCMAKE_INSTALL_PREFIX=$PREFIX \
+        -DCMAKE_PREFIX_PATH=$CONDA_PREFIX
 )
 
 stage "Build"
 (
     cd _build
-    # Dependency resolution isnt completely derived so do generation first
-    ninja scitbx_refresh
     ninja
 )
 
