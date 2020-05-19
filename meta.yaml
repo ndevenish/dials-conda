@@ -18,7 +18,7 @@ source:
 
 requirements:
   build:
-    - python
+    - python>=3.6,<3.7
     - git
     - cmake
     - ninja
@@ -29,15 +29,15 @@ requirements:
     - six
     - docopt
   host:
-    - numpy
-    - python
+    - numpy>=1.16,<1.17
+    - python>=3.6,<3.7
     #- docopt
     - six
     # Binary duplicates
     - boost<1.73
     - eigen
     - msgpack-c
-    - hdf5
+    - hdf5<1.11
     - mesalib # [linux]
     - libglu  # [linux]
     - libtiff # [linux]
@@ -52,57 +52,101 @@ requirements:
     - eigen
     - msgpack-c
 
-    - pthread-stubs
-    - py2app        # [mac]
-    - python.app    # [mac]
+    - conda-forge::pthread-stubs # [mac]
+    - conda-forge::python.app    # [mac]
+
+    # List from dials
+    - conda-forge::hdf5-external-filter-plugins
+    - conda-forge::colorlog
+    - conda-forge::dials-data
+    - conda-forge::mrcfile
+    - conda-forge::msgpack-python=0.6.2
+    - conda-forge::orderedset
+    - conda-forge::procrunner>=1.0.2
+    - conda-forge::pyrtf
+    - conda-forge::alabaster
+    - conda-forge::biopython=1.73
+    - conda-forge::bzip2
+    - conda-forge::conda
+    - conda-forge::cython>=0.29,<0.30
+    - conda-forge::docutils
+    - conda-forge::future
+    - conda-forge::h5py
+    - conda-forge::hdf5<1.11
+    - conda-forge::jinja2
+    - conda-forge::jpeg
+    - conda-forge::matplotlib-base>=3.0.2,<3.1
+    - conda-forge::mock
+    - conda-forge::numpy>=1.16,<1.17
+    - conda-forge::pillow>=5.4.1
+    - conda-forge::pip
+    - conda-forge::psutil
+    - conda-forge::pytest>=4.5,<5.0
+    - conda-forge::pytest-forked
+    - conda-forge::pytest-mock<2.0
+    - conda-forge::pytest-xdist
+    - conda-forge::python>=3.6,<3.7
+    - conda-forge::requests
+    - conda-forge::scikit-learn=0.20.2
+    - conda-forge::scipy=1.2.1
+    - conda-forge::scons
+    - conda-forge::setuptools
+    - conda-forge::six
+    - conda-forge::sphinx<1.9
+    - conda-forge::sqlite
+    - conda-forge::tabulate
+    - conda-forge::tqdm=4.23.4
+    - conda-forge::urllib3
+    - conda-forge::wxpython>=4.0.1
+    - conda-forge::xz
 
     #- mesalib # [linux]
     #- libglu  # [linux]
     #- "cctbx::hdf5_plugins"
     #- "cctbx::libcxx"
 
-    - "conda-forge::dials-data"
-    - "conda-forge::mrcfile"
-    - "conda-forge::msgpack-python"
-    - "conda-forge::orderedset"
-    - "conda-forge::procrunner>=1.0.2"
-    - "conda-forge::pyrtf"
+    # - "conda-forge::dials-data"
+    # - "conda-forge::mrcfile"
+    # - "conda-forge::msgpack-python"
+    # - "conda-forge::orderedset"
+    # - "conda-forge::procrunner>=1.0.2"
+    # - "conda-forge::pyrtf"
 
-    - alabaster
-    - biopython
-    - bzip2
-    - cython
-    - docutils
-    - future
-    - h5py
-    - hdf5
-    - jinja2
-    - jpeg
-    - matplotlib-base
-    - mock
-    - nomkl
-    - numpy
-    - pillow>=5.4.1
-    - pip
-    - psutil
-    - pytest>=4.5
-    - pytest-forked
-    - pytest-mock
-    - pytest-xdist
-    - python>=3.6
-    - requests
-    - scikit-learn
-    - scipy
-    - send2trash
-    - setuptools
-    - six
-    - sphinx
-    - sqlite
-    - tabulate
-    - tqdm
-    - urllib3
-    - wxpython>=4.0.1
-    - xz
+    # - alabaster
+    # - biopython
+    # - bzip2
+    # - cython
+    # - docutils
+    # - future
+    # - h5py
+    # - hdf5
+    # - jinja2
+    # - jpeg
+    # - matplotlib-base
+    # - mock
+    # - nomkl
+    # - numpy
+    # - pillow>=5.4.1
+    # - pip
+    # - psutil
+    # - pytest>=4.5
+    # - pytest-forked
+    # - pytest-mock
+    # - pytest-xdist
+    # - python>=3.6
+    # - requests
+    # - scikit-learn
+    # - scipy
+    # - send2trash
+    # - setuptools
+    # - six
+    # - sphinx
+    # - sqlite
+    # - tabulate
+    # - tqdm
+    # - urllib3
+    # - wxpython>=4.0.1
+    # - xz
 #     - python
 
 # test:
