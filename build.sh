@@ -77,6 +77,8 @@ stage "Generating Build"
 stage "Build"
 (
     cd _build
+    # Dependency resolution seems to have some bugs
+    ninja scitbx_refresh
     ninja
 )
 
