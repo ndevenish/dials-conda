@@ -2,10 +2,10 @@ diff --git a/cctbx_project/boost_adaptbx/graph/clustering_algorithm_ext.cpp b/cc
 index 58559fae9..80866a6fe 100644
 --- a/cctbx_project/boost_adaptbx/graph/clustering_algorithm_ext.cpp
 +++ b/cctbx_project/boost_adaptbx/graph/clustering_algorithm_ext.cpp
-@@ -11,6 +11,49 @@
+@@ -11,6 +11,50 @@
  #include <boost/graph/graph_traits.hpp>
  #include <boost/graph/bc_clustering.hpp>
- 
+
 +#if _LIBCPP_VERSION && (BOOST_VERSION < 107300)
 +namespace boost_fix {
 +// Since boost::Graph doesn't work with newer libc++, reimplement without max_element
@@ -50,17 +50,17 @@ index 58559fae9..80866a6fe 100644
 +}  // namespace boost_fix
 +#endif
 +
- 
+
  namespace boost_adaptbx
  {
-@@ -30,16 +73,24 @@ struct betweenness_centrality_clustering_export
+@@ -30,16 +74,24 @@ struct betweenness_centrality_clustering_export
      double const& threshold
      )
    {
 -    using namespace boost;
      index_map_type index_map( graph );
      edge_centrality_map_type edge_centrality_map( graph );
- 
+
 +#if _LIBCPP_VERSION && (BOOST_VERSION < 107300)
 +    boost_fix::betweenness_centrality_clustering(
 +      graph,
@@ -76,6 +76,6 @@ index 58559fae9..80866a6fe 100644
        index_map.get()
        );
 +#endif
- 
+
      boost::python::dict edge_centrality_dict;
      edge_iterator ei, ej;
