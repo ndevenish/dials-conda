@@ -64,6 +64,20 @@ poststep
 
 stage "Generating Build"
 
+if [ $(uname) == Linux ]; then
+    export CC="ccache gcc"
+    export CXX="ccache g++"
+    # Set max cache size so we don't carry old objects for too long
+    ccache -M 400M
+else
+    export CC="ccache clang"
+    export CXX="ccache clang++"
+    # Set max cache size so we don't carry old objects for too long
+    ccache -M 400M
+fi
+export CCACHE_BASEDIR="${SRC_DIR}"
+ccache -z
+
 [[ -f "_build/build.ninja" ]] || (
     mkdir -p _build && cd _build
     # Extra python args to ensure picks up conda python
@@ -81,6 +95,8 @@ stage "Build"
     ninja scitbx_refresh
     ninja
 )
+
+ccache -s
 
 stage "Install"
 export LIBTBX_BUILD=$(pwd)/_build

@@ -28,6 +28,7 @@ requirements:
     - pyyaml
     - six
     - docopt
+    - ccache
   host:
     - numpy>=1.16
     - python>=3.6,<3.7
