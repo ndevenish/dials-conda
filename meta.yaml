@@ -29,7 +29,7 @@ requirements:
     - six
     - docopt
   host:
-    - numpy>=1.16,<1.17
+    - numpy>=1.16
     - python>=3.6,<3.7
     #- docopt
     - six
