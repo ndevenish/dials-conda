@@ -28,6 +28,17 @@ poststep() {
     fi
 }
 
+export CC="ccache gcc"
+export CXX="ccache g++"
+# Set max cache size so we don't carry old objects for too long
+#ccache -M 2G
+
+echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+
+
+export CCACHE_BASEDIR="$(cd ${SRC_DIR}/.. && pwd)"
+
+export CCACHE_LOGFILE="${SRC_DIR}/cache.debug"
 
 printf "Environment:\e[37m\n"
 env | sort
@@ -64,18 +75,6 @@ poststep
 
 stage "Generating Build"
 
-if [ $(uname) == Linux ]; then
-    export CC="ccache gcc"
-    export CXX="ccache g++"
-    # Set max cache size so we don't carry old objects for too long
-    ccache -M 400M
-else
-    export CC="ccache clang"
-    export CXX="ccache clang++"
-    # Set max cache size so we don't carry old objects for too long
-    ccache -M 400M
-fi
-export CCACHE_BASEDIR="${SRC_DIR}"
 ccache -z
 
 [[ -f "_build/build.ninja" ]] || (
@@ -93,6 +92,10 @@ stage "Build"
     cd _build
     # Dependency resolution seems to have some bugs
     ninja scitbx_refresh
+    # Next not needed, but for diagnosing problem do first
+    ninja dxtbx_refresh
+    # Ahhh screw it - found spotfinder_array_family_flex_ext also needs cctbx
+    ninja refresh_meta
     ninja
 )
 

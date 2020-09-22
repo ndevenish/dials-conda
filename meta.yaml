@@ -1,6 +1,6 @@
 package:
   name: dials
-  version: "3.0.0a1"
+  version: "3.1.0a1"
 
 build:
   number: 1
@@ -34,6 +34,7 @@ requirements:
     - python>=3.6,<3.7
     #- docopt
     - six
+    - future
     # Binary duplicates
     - boost<1.73
     - eigen
