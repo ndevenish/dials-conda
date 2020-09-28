@@ -3,7 +3,7 @@ package:
   version: "3.1.0a1"
 
 build:
-  number: 4
+  number: 6
 
 source:
   - git_url: https://github.com/ndevenish/super-dials
@@ -11,7 +11,6 @@ source:
     patches:
       - patches/0001-boost-graph-patch.patch
       - patches/0002-Replace-libtbx-env.patch
-      - patches/0003-entry-functions.patch
   - git_url: https://github.com/ndevenish/tbxcmake
     folder: modules/cmake
   - git_url: https://github.com/ndevenish/tbxtools
@@ -23,7 +22,7 @@ requirements:
     - git
     - cmake
     - ninja
-    - {{ compiler('cxx') }}
+    - "{{ compiler('cxx') }}"
     # tbxtools
     - networkx
     - pyyaml
@@ -42,9 +41,8 @@ requirements:
     - msgpack-c
     - hdf5<1.11
     - mesalib # [linux]
-    - libglu  # [linux]
+    - libglu # [linux]
     - libtiff # [linux]
-
 
   run:
     # Extra things from this distribution
@@ -56,7 +54,7 @@ requirements:
     - msgpack-c
 
     - conda-forge::pthread-stubs # [mac]
-    - conda-forge::python.app    # [mac]
+    - conda-forge::python.app # [mac]
 
     # List from dials
     - conda-forge::hdf5-external-filter-plugins
@@ -159,7 +157,7 @@ requirements:
 # about:
 #   home:
 about:
-    home: https://github.com/dials/dials
-    license: BSD
-    license_file: LICENSE
-    summary: Diffraction Integration for Advanced Light Sources
+  home: https://github.com/dials/dials
+  license: BSD
+  license_file: LICENSE
+  summary: Diffraction Integration for Advanced Light Sources
