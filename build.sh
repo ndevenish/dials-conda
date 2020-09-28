@@ -116,6 +116,7 @@ export LIBTBX_BUILD=$(pwd)/_build
     mkdir pycbf && cp ../_build/lib/pycbf.py pycbf/__init__.py
     # Make sure ccp4io included in this
     touch ccp4io/__init__.py ccp4io/libccp4/__init__.py ccp4io/libccp4/data/__init__.py
+    touch dials/templates/__init__.py
 
     pwd
 
