@@ -30,14 +30,18 @@ class Environment:
         entrypoint = entrypoints.get_single("libtbx.module", module)
         # Work out where this will be, without importing
         package = pkgutil.get_loader(entrypoint.module_name)
+        if not package:
+            raise RuntimeError(f"Could not find module {module}")
         return str(Path(package.path).parent)
 
-    def has_module(self, module: str) -> bool:
+    def has_module(self, name: str) -> bool:
         try:
-            entrypoint = entrypoints.get_single("libtbx.module", module)
+            entrypoint = entrypoints.get_single("libtbx.module", name)
             return True
-        except entrypoint.NoSuchEntryPoint:
+        except entrypoints.NoSuchEntryPoint:
             return False
 
+    def under_dist(self, module_name: str, path: str) -> str:
+        return str(Path(self.dist_path(module_name))/path)
 
 libtbx.env = Environment()
