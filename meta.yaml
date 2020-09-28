@@ -11,6 +11,7 @@ source:
     patches:
       - patches/0001-boost-graph-patch.patch
       - patches/0002-Replace-libtbx-env.patch
+      - patches/0003-entry-functions.patch
   - git_url: https://github.com/ndevenish/tbxcmake
     folder: modules/cmake
   - git_url: https://github.com/ndevenish/tbxtools
